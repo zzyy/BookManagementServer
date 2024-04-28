@@ -50,8 +50,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-               sh "docker container stop ${CONTAINER_NAME}"
-               sh "docker container rm ${CONTAINER_NAME}"
+               sh "docker container stop ${CONTAINER_NAME} || true"
+               sh "docker container rm ${CONTAINER_NAME} || true"
                sh "docker run -d --network=host --name ${CONTAINER_NAME} -p 8080:8080 ${DOCKER_TAG}"
                sh 'docker ps'
             }
